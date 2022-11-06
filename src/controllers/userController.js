@@ -30,14 +30,7 @@ const loginUser = async function (req, res) {
                                // 3rd get API
 
 const getUserData = async function (req, res) {
-  let token = req.headers["x-auth-token"];
-  if (!token) return res.send({ status: false, msg: "token must be present" });
-  console.log(token);
-
-  let decodedToken = jwt.verify(token, "functionup-lithium");
-  if (!decodedToken)
-    return res.send({ status: false, msg: "token is invalid" });
-
+  
   let userId = req.params.userId;
   let userDetails = await userModel.findById(userId);
   if (!userDetails)
@@ -50,12 +43,6 @@ const getUserData = async function (req, res) {
                                 // 4th put API 
 
 const updateUser = async function (req, res) {
-  let token = req.headers["x-auth-token"];
-  if (!token) token = req.headers["x-auth-token"];
-  
-  if (!token) return res.send({ status: false, msg: "token nahi hai aapka" });
-  console.log(token);
-  
   
   let userId = req.params.userId;
   let user = await userModel.findById(userId);
@@ -70,10 +57,6 @@ const updateUser = async function (req, res) {
                                   // 5th delete API
 
   const deleteUser = async function (req, res) {
-    let token = req.headers["x-auth-token"];
-    if (!token) return res.send({ status: false, msg: "token must be present" });
-    console.log(token);
-
   let dlt = req.params.userId
  let isDeleted = await userModel.findByIdAndDelete(dlt);
  res.send({ status:"Deleted", updatedData: isDeleted });
